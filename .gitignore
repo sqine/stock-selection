@@ -30,3 +30,6 @@ venv/
 *.pdf
 *.docx
 *.hwp
+
+# 로컬 메모 (공개 제외)
+notes/
