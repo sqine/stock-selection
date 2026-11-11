@@ -40,7 +40,7 @@ def weekly():
 - 추천 종목·주차·마감일은 LearnUs 과제 제출 내역과 제출 파일명에서 옮겨 `configs/picks.csv` 에 적었다.
 - 보유 구간이 중간·기말고사 주간과 겹친 주는 실제로 평가하지 않았으므로 제외한다(2026-1 5·11주차).
 - 가격: 네이버 금융 일봉(수정주가). 비용: 매수 0.015%, 매도 0.195%(수수료+거래세).
-- 방법론 설명과 한계는 `docs/methodology.md` 에 있다."""),
+- 방법론 설명과 한계는 README 3·5절에 있다."""),
         code(SETUP + r'''
 from stock_selection.data import load_prices
 from stock_selection.backtest import evaluate_picks
