@@ -12,12 +12,11 @@ def _prices(dates, base=100.0):
 
 def test_window_friday_to_thursday():
     px = _prices(pd.bdate_range("2025-10-13", "2025-10-31"))
-    d_in, d_out = holding_window(px, pd.Timestamp("2025-10-16"))  # 목요일 마감
+    d_in, d_out = holding_window(px, pd.Timestamp("2025-10-16"))
     assert (d_in.date().isoformat(), d_out.date().isoformat()) == ("2025-10-17", "2025-10-23")
 
 
 def test_window_holidays():
-    # 금요일 휴장 → 다음 거래일 시가, 목요일 휴장 → 직전 거래일 종가
     days = [d for d in pd.bdate_range("2025-10-01", "2025-10-31") if d.date().isoformat() not in ("2025-10-10", "2025-10-16")]
     d_in, d_out = holding_window(_prices(days), pd.Timestamp("2025-10-09"))
     assert (d_in.date().isoformat(), d_out.date().isoformat()) == ("2025-10-13", "2025-10-15")

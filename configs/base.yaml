@@ -1,19 +1,11 @@
-# 공통 설정. 숫자를 바꾸면 노트북 결과가 바뀐다.
 weekly_picks:
   picks_file: configs/picks.csv
   rule: "추천 마감일 이후 첫 금요일 시가 매수 → 다음 목요일 종가 매도"
-  exclude_exam_weeks: true        # 보유 구간이 중간·기말고사 주간과 겹치는 주는 평가에서 제외
+  exclude_exam_weeks: true
   benchmark: KOSPI
-  costs:                          # 2026-1 포트폴리오 과제 코드와 같은 값
-    buy: 0.00015                  # 매수 수수료 0.015%
-    sell: 0.00195                 # 매도 수수료 0.015% + 거래세 0.18%
+  costs:
+    buy: 0.00015
+    sell: 0.00195
   periods_per_year: 52
   rf_annual: 0.0
 
-ga:
-  data_file: data/raw/ga_kospi200.csv   # scripts/extract_ga_excel.py 로 생성
-  train_end: "2024-10-31"               # 학습 2023-11-01~2024-10-31 / 검증 2024-11-01~2025-04-30
-  seeds: [0, 1, 2, 3, 4]
-  population: 60
-  generations: 80
-  periods_per_year: 252

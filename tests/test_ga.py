@@ -1,4 +1,3 @@
-"""엑셀 원본 수식과 Python 이식본이 같은 값을 내는지 확인. 데이터가 없으면 건너뛴다."""
 from pathlib import Path
 
 import numpy as np
@@ -25,6 +24,6 @@ def test_rowwise_match_excel(df):
 
 def test_final_numbers_match_excel(df):
     ev = evaluate(df, EXCEL_SOLUTION)
-    assert ev["pnl"] == pytest.approx(533.31, abs=0.01)          # 엑셀 E2
-    assert ev["return_rate"] == pytest.approx(0.31631, abs=1e-5)  # 엑셀 E3
-    assert ev["n_buys"] == 18                                     # 엑셀 E4
+    assert ev["pnl"] == pytest.approx(533.31, abs=0.01)
+    assert ev["return_rate"] == pytest.approx(0.31631, abs=1e-5)
+    assert ev["n_buys"] == 18

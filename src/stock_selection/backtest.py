@@ -1,8 +1,3 @@
-"""주간 추천 평가: 추천 마감일 이후 첫 금요일 시가 매수 → 다음 목요일 종가 매도.
-
-실제 과제 평가 규칙과 같다. 금요일이 휴장이면 다음 거래일 시가, 목요일이 휴장이면
-직전 거래일 종가를 쓴다.
-"""
 from __future__ import annotations
 
 from typing import Callable
@@ -26,7 +21,6 @@ def holding_window(prices: pd.DataFrame, ref_date: pd.Timestamp) -> tuple[pd.Tim
 
 def evaluate_picks(picks: pd.DataFrame, load: Callable[[str], pd.DataFrame], *,
                    buy_cost: float, sell_cost: float, benchmark: str = "KOSPI") -> pd.DataFrame:
-    """picks: ref_date(추천 파일 저장일/마감일), ticker, name 열을 가진 표. 한 행 = 한 주."""
     bm = load(benchmark)
     out = []
     for row in picks.itertuples(index=False):

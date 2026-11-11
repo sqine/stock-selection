@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# 전체 재현: 테스트 → 노트북 생성·실행
 set -euo pipefail
 cd "$(dirname "$0")/.."
 python -m pytest -q
 python scripts/build_notebooks.py
-for nb in notebooks/01_weekly_picks.ipynb notebooks/02_ga_kospi200.ipynb; do
+for nb in notebooks/01_weekly_picks.ipynb; do
   python -m jupyter nbconvert --to notebook --execute --inplace "$nb" 2>/dev/null \
     || python - "$nb" <<'PY'
 import sys, nbformat

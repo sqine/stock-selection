@@ -1,8 +1,3 @@
-"""성과 지표와 README용 결과표.
-
-모든 함수는 '기간 수익률' 시리즈(단순수익률, 0.01 = 1%)를 입력으로 받는다.
-periods_per_year 는 주간 52, 일간 252.
-"""
 from __future__ import annotations
 
 import numpy as np
@@ -10,7 +5,6 @@ import pandas as pd
 
 
 def apply_costs(gross: pd.Series, buy_cost: float, sell_cost: float) -> pd.Series:
-    """왕복 1회 거래(매수 후 매도)를 가정해 비용을 차감한 수익률."""
     return (1 - buy_cost) * (1 + gross) * (1 - sell_cost) - 1
 
 
@@ -37,7 +31,6 @@ def sharpe(r: pd.Series, periods_per_year: int, rf_annual: float = 0.0) -> float
 
 
 def max_drawdown(r: pd.Series) -> float:
-    """복리 누적 자산곡선 기준 최대낙폭 (음수). 시작 자산 1을 고점 후보에 포함."""
     eq = np.concatenate([[1.0], (1 + r).cumprod().values])
     peak = np.maximum.accumulate(eq)
     return float((eq / peak - 1).min())
@@ -49,11 +42,6 @@ def calmar(r: pd.Series, periods_per_year: int) -> float:
 
 
 def turnover(weights: pd.DataFrame) -> float:
-    """리밸런싱 1회당 평균 편도 회전율 = max(매수 비중 합, 매도 비중 합).
-
-    weights: 행=리밸런싱 시점, 열=종목(현금 제외), 값=목표비중. 첫 행은 전액 현금에서 시작.
-    현금→A 전액 매수 = 100%, A→B 전액 교체 = 100%, 변화 없음 = 0%.
-    """
     w = weights.fillna(0.0)
     d = w - w.shift(1).fillna(0.0)
     buys, sells = d.clip(lower=0).sum(axis=1), (-d).clip(lower=0).sum(axis=1)
@@ -63,11 +51,6 @@ def turnover(weights: pd.DataFrame) -> float:
 def summary(r: pd.Series, periods_per_year: int, *, benchmark: pd.Series | None = None,
             n_trades: int | None = None, turnover_per_rebal: float | None = None,
             rf_annual: float = 0.0, min_periods_for_annualized: int = 52) -> dict:
-    """README 결과표 한 열에 들어갈 값.
-
-    표본이 min_periods_for_annualized 미만이면 연환산 수익률·칼마는 NaN으로 둔다
-    (짧은 표본의 연환산은 의미가 없다).
-    """
     short = len(r) < min_periods_for_annualized
     out = {
         "기간 수": len(r),
@@ -105,7 +88,6 @@ def _fmt(key: str, v) -> str:
 
 
 def to_markdown(cols: dict[str, dict]) -> str:
-    """{열 이름: summary() 결과} → 마크다운 표 (행=지표)."""
     keys: list[str] = []
     for d in cols.values():
         for k in d:

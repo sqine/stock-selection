@@ -1,9 +1,3 @@
-"""가격 데이터 수집. 네이버 금융 일봉 차트(fchart)를 받아 data/raw/prices/ 에 캐시한다.
-
-- 종목: 6자리 코드 (예: '000660'), 지수: 'KOSPI'
-- 가격은 네이버가 제공하는 수정주가(액면분할·무상증자 반영)다.
-- data/raw 는 .gitignore 대상이다. 재현 시 이 모듈이 다시 받아온다.
-"""
 from __future__ import annotations
 
 import re
@@ -29,7 +23,6 @@ def _download(symbol: str, count: int) -> pd.DataFrame:
 
 
 def load_prices(symbol: str, *, count: int = 800, refresh: bool = False) -> pd.DataFrame:
-    """일봉 OHLCV. 캐시가 있으면 캐시를 쓴다."""
     CACHE.mkdir(parents=True, exist_ok=True)
     path = CACHE / f"{symbol}.csv"
     if path.exists() and not refresh:

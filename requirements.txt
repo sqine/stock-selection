@@ -2,11 +2,8 @@ pandas>=2.0
 numpy>=1.24
 matplotlib>=3.7
 pyyaml>=6.0
-openpyxl>=3.1
 pytest>=8.0
 nbformat>=5.9
 nbclient>=0.10
 ipykernel>=6.29
 jinja2>=3.1
-# 원본 노트북(notebooks/original) 재실행용
-# pykrx, TA-Lib, xgboost, scikit-learn
